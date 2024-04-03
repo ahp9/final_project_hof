@@ -11,7 +11,6 @@ public class Leikmadur  implements LeikmadurInterface{
 
     @Override
     public int getSamtals() {
-        System.out.println(samatalsAHendi);
         return samatalsAHendi;
     }
 

@@ -29,7 +29,4 @@ public class SpilV {
     public String toString() {
         return gildi+" "+tegund.name();
     }
-
-
-
 }

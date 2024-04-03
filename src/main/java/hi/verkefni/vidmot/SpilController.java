@@ -83,7 +83,6 @@ public class SpilController implements Initializable {
             }
         }
         fxSamtalsDealer.setText(dealer.getSamtals() + "");
-
     }
 
     /**

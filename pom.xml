@@ -102,7 +102,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.2.0</version>
                 <configuration>
-                    <mainClass>hi.verkefni.vidmot.SpilApplication</mainClass>
+                    <mainClass>hi.verkefni.vidmot/hi.verkefni.vidmot.SpilApplication</mainClass>
                 </configuration>
             </plugin>
             <plugin>
