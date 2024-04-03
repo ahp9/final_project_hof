@@ -3,10 +3,6 @@ package hi.verkefni.vinnsla;
 public interface PlayerInterface {
     int getScore();
 
-    String getName();
-
-    void setName(String nafn);
-
     /**
      * Leikmaður má hafa mest max fjölda spila á hendi.
      * Gefur leikmanni spil s ef leikmaður ef max er ekki náð.
@@ -22,15 +18,7 @@ public interface PlayerInterface {
      * @param d dealer
      * @return satt ef d hefur unnið, annars false
      */
-    boolean dealerWins(Player d);
-
-    /**
-     * Skila hvaða leikmaður vann d (dealerinn) eða þessi leikmaður
-     *
-     * @param d - andstæðingur leikmannsins
-     * @return - skilar þeim leikmanni sem vann  - null ef hvorugur vann
-     */
-    Player whoWon(Player d);
+    boolean whoWins(Player d);
 
     /**
      * Athugar hvort leikmaður er sprunginn
@@ -38,6 +26,13 @@ public interface PlayerInterface {
      * @return - true ef leikmaður er sprunginn, annars false
      */
     boolean isBust();
+
+    /**
+     * Athugar hvort leikmaður fékk 21
+     * 
+     * @return - true ef leikmaður fékk 21, annars false
+     */
+    boolean hasTwentyOne();
 
     /**
      * Leikmaður tekur þátt í nýjum leik, samtala og fjöldi spila á hendi er 0

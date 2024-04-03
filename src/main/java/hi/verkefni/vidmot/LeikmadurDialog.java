@@ -2,7 +2,6 @@ package hi.verkefni.vidmot;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 
 import java.io.IOException;
@@ -31,12 +30,12 @@ public class LeikmadurDialog extends DialogPane {
      * Aðferð sem birtir dialog sem biður um nafn leikmanns
      * @return nafn leikmanns
      */
-    public String[] hvadHeitaLeikmenn(){
+    public String playersName(){
         Dialog<ButtonType> d = new Dialog<>();
         d.setDialogPane(this);
-        Optional<ButtonType> utkoma = d.showAndWait();
-        if (utkoma.isPresent() && (utkoma.get().getButtonData() == ButtonBar.ButtonData.OK_DONE)){
-            return new String[]{fxLeikmadur.getText()};
+        Optional<ButtonType> result = d.showAndWait();
+        if (result.isPresent() && (result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE)){
+            return fxLeikmadur.getText();
         } else {
             return null;
         }

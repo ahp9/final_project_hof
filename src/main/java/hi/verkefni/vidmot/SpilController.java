@@ -14,7 +14,6 @@ import javafx.scene.layout.HBox;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
 public class SpilController implements Initializable {
     @FXML
     public Button fxnyrLeikur;
@@ -35,32 +34,19 @@ public class SpilController implements Initializable {
     @FXML
     private Label fxSamtalsDealer;
 
-
-    private Player leikmadur = new Player();
-    private Deck stokkur = new Deck();
+    private Player player = new Player();
+    private Deck deck = new Deck();
     private Player dealer = new Dealer();
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         LeikmadurDialog l = new LeikmadurDialog();
-        String [] leikmenn = l.hvadHeitaLeikmenn();
-        if (leikmenn != null){
-            fxNafnLeikmadur.setText(leikmenn[0] + "");
-            for (int i = 0; i < 2; i++){
-                gefaLSpil();
-                gefaDSpil();
-            }
-            if (finnaSigurvegara() != null){
-                if (sprakk()){
-                    fxVinningur.setText(sprakkText());
-                    stada2();
-                } else {
-                    fxVinningur.setText(finnaSigurvegara());
-                    stada2();
-                }
-            }
-            stada1();
+        String playersName = l.playersName();
+        if (playersName != null) {
+            fxNafnLeikmadur.setText(playersName + "");
+
+            gameInPlayState();
+            gameSetup();
         } else {
             Platform.exit();
         }
@@ -72,15 +58,15 @@ public class SpilController implements Initializable {
      * leikmannsins
      */
     @FXML
-    protected void nyttSpilHandler(){
-        gefaLSpil();
-        if (finnaSigurvegara() != null){
-            if (sprakk()){
+    protected void drawNewCard() {
+        playerDraws();
+        if (findWinner() != null) {
+            if (player.isBust() || dealer.isBust()) {
                 fxVinningur.setText(sprakkText());
-                stada2();
+                gameFinishedState();
             } else {
-                fxVinningur.setText(finnaSigurvegara());
-                stada2();
+                fxVinningur.setText(findWinner());
+                gameFinishedState();
             }
         }
         fxSamtalsDealer.setText(dealer.getScore() + "");
@@ -92,18 +78,16 @@ public class SpilController implements Initializable {
      * dealersins. Athugað hvort dealerinn vann eða ekki.
      */
     @FXML
-    protected void komidNogHandler(){
-        System.out.println();
-        while (!((Dealer) dealer).hasSeventeen()){
-            System.out.println(((Dealer) dealer).hasSeventeen());
-            gefaDSpil();
+    protected void stand() {
+        while (!((Dealer) dealer).hasSeventeen()) {
+            dealerDraws();
         }
-        if (sprakk()){
+        if (player.isBust() || dealer.isBust()) {
             fxVinningur.setText(sprakkText());
-            stada2();
+            gameFinishedState();
         } else {
-            fxVinningur.setText(vinnurDealer());
-            stada2();
+            fxVinningur.setText(whoWon());
+            gameFinishedState();
         }
     }
 
@@ -113,22 +97,28 @@ public class SpilController implements Initializable {
      * Athugar hvort annar þeirra hefur unnið strax
      */
     @FXML
-    protected void nyrLeikurHandler (){
-        eydaMyndum();
+    protected void newGame() {
+        removeCards();
         fxVinningur.setText("");
-        stokkur = new Deck();
-        leikmadur.newGame();
+        deck = new Deck();
+        player.newGame();
         dealer.newGame();
-        stada1();
-        for (int k = 0; k < 2; k++){
-            gefaLSpil();
-            gefaDSpil();
+        gameInPlayState();
+        gameSetup();
+    }
+
+    private void gameSetup() {
+        for (int k = 0; k < 2; k++) {
+            playerDraws();
+            dealerDraws();
         }
-        if (finnaSigurvegara() != null){
-            if (sprakk()){
+        if (findWinner() != null) {
+            if (player.isBust() || dealer.isBust()) {
                 fxVinningur.setText(sprakkText());
+                gameFinishedState();
             } else {
-                fxVinningur.setText(finnaSigurvegara());
+                fxVinningur.setText(findWinner());
+                gameFinishedState();
             }
         }
     }
@@ -137,7 +127,7 @@ public class SpilController implements Initializable {
      * Óvirkir Nýr Leikur hnappinn á meðan verið er að spila.
      * Nýtt Spil og Komið Nóg er enn virkir
      */
-    private void stada1(){
+    private void gameInPlayState() {
         fxnyrLeikur.setDisable(true);
         fxNyttSpil.setDisable(false);
         fxKomidnog.setDisable(false);
@@ -147,16 +137,16 @@ public class SpilController implements Initializable {
      * Óvirkjar Nýtt spil og Komið nóg en virkir Nýr leikur.
      * Gerist þegar leikur er búinn.
      */
-    private void stada2(){
+    private void gameFinishedState() {
         fxnyrLeikur.setDisable(false);
         fxNyttSpil.setDisable(true);
         fxKomidnog.setDisable(true);
     }
 
     /**
-     * Eyðir myndum frá fyrrum leik.
+     * Eyðir spilum frá fyrrum leik.
      */
-    private void eydaMyndum() {
+    private void removeCards() {
         fxLeikmadurHendi.getChildren().removeAll(fxLeikmadurHendi.getChildren());
         fxDealerHendi.getChildren().removeAll(fxDealerHendi.getChildren());
     }
@@ -167,28 +157,28 @@ public class SpilController implements Initializable {
      * @param a SpilV sem var dregið úr stokk.
      * @return skilar SpilV umbreyttu í Spil
      */
-    private Spil nyttSpil(Card a){
-        Spil aHendi = new Spil();
-        aHendi.setSpil(a);
+    private CardUI newCard(Card a) {
+        CardUI aHendi = new CardUI();
+        aHendi.setCardUI(a);
         return aHendi;
     }
 
     /**
      * Setur spil á hendi leikmannsins og prentar út samtölu hans.
      */
-    private void gefaLSpil(){
-        Card l = stokkur.dragaSpil();
-        fxLeikmadurHendi.getChildren().add(nyttSpil(l));
-        leikmadur.drawCard(l);
-        fxSamtalsLeikamdur.setText(leikmadur.getScore() + "");
+    private void playerDraws() {
+        Card l = deck.dragaSpil();
+        fxLeikmadurHendi.getChildren().add(newCard(l));
+        player.drawCard(l);
+        fxSamtalsLeikamdur.setText(player.getScore() + "");
     }
 
     /**
      * Setur spil á hendi dealersins og prentar út samtölu hans.
      */
-    private void gefaDSpil(){
-        Card d = stokkur.dragaSpil();
-        fxDealerHendi.getChildren().add(nyttSpil(d));
+    private void dealerDraws() {
+        Card d = deck.dragaSpil();
+        fxDealerHendi.getChildren().add(newCard(d));
         dealer.drawCard(d);
         fxSamtalsDealer.setText(dealer.getScore() + "");
     }
@@ -197,40 +187,31 @@ public class SpilController implements Initializable {
      * Tjékkar hvort einhver er búinn að vinna
      *
      * @return skilar streng þess sem er búinn að vinna eða skilar engu ef
-     * hvorugur hefur unnið
+     *         hvorugur hefur unnið
      */
-    private String finnaSigurvegara (){
-        if (leikmadur.whoWon(dealer) == leikmadur){
-            return "Til hamingju " + fxNafnLeikmadur.getText() + ", þú vannst og með samtölu: " + leikmadur.getScore();
-        } else if (leikmadur.whoWon(dealer) == dealer){
+    private String findWinner() {
+        if (player.hasTwentyOne() || dealer.isBust()) {
+            return "Til hamingju " + fxNafnLeikmadur.getText() + ", þú vannst og með samtölu: " + player.getScore();
+        } else if (dealer.hasTwentyOne() || player.isBust()) {
             return "Því miður vann dealerinn með samtölu: " + dealer.getScore();
         }
         return null;
     }
 
-    /**
-     * Tjékkar hvort dealerinn er búinn að vinna
-     *
-     * @return skilar streng hvort dealerinn eða leikmaðurinn hefur unnið
-     */
-    private String vinnurDealer(){
-        if (leikmadur.dealerWins(dealer)){
-            return "Því miður vann dealerinn með samtölu: " + dealer.getScore();
+    private String whoWon() {
+        if (player.getScore() == dealer.getScore()) {
+            return "Draw";
+        }
+        if (player.whoWins(dealer)) {
+            return "Player";
         } else {
-            return "Til hamingju " + fxNafnLeikmadur.getText() + ", þú vannst og með samtölu: " + leikmadur.getScore();
+            return "Dealer";
         }
     }
 
-    private boolean sprakk(){
-        if (leikmadur.getScore() > 21 ||dealer.getScore() > 21 ){
-            return true;
-        }
-        return false;
-    }
-
-    private String sprakkText(){
-        if (leikmadur.getScore() > 21){
-            return "Dealerinn vinnur, þú sprakkst: " + leikmadur.getScore();
+    private String sprakkText() {
+        if (player.getScore() > 21) {
+            return "Dealerinn vinnur, þú sprakkst: " + player.getScore();
         } else {
             return "Til hamingju " + fxNafnLeikmadur.getText() + " þú vanst, dealerinn sprakk: " +
                     dealer.getScore();

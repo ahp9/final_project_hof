@@ -20,17 +20,17 @@
             </Label>
          </children>
       </AnchorPane>
-      <Button fx:id="fxnyrLeikur" alignment="CENTER" layoutX="838.0" layoutY="114.0" mnemonicParsing="false" onAction="#nyrLeikurHandler" prefHeight="49.0" prefWidth="130.0" style="-fx-background-color: ffff;" text="Nýr Leikur" AnchorPane.bottomAnchor="508.0" AnchorPane.leftAnchor="838.0" AnchorPane.rightAnchor="58.0" AnchorPane.topAnchor="115.0">
+      <Button fx:id="fxnyrLeikur" alignment="CENTER" layoutX="838.0" layoutY="114.0" mnemonicParsing="false" onAction="#newGame" prefHeight="49.0" prefWidth="130.0" style="-fx-background-color: ffff;" text="Nýr Leikur" AnchorPane.bottomAnchor="508.0" AnchorPane.leftAnchor="838.0" AnchorPane.rightAnchor="58.0" AnchorPane.topAnchor="115.0">
          <font>
             <Font name="Book Antiqua" size="15.0" />
          </font>
       </Button>
-      <Button fx:id="fxNyttSpil" alignment="CENTER" layoutX="842.0" layoutY="185.0" mnemonicParsing="false" onAction="#nyttSpilHandler" prefHeight="49.0" prefWidth="130.0" style="-fx-background-color: ffff;" text="Nýtt Spil" AnchorPane.bottomAnchor="438.0" AnchorPane.rightAnchor="58.0" AnchorPane.topAnchor="185.0">
+      <Button fx:id="fxNyttSpil" alignment="CENTER" layoutX="842.0" layoutY="185.0" mnemonicParsing="false" onAction="#drawNewCard" prefHeight="49.0" prefWidth="130.0" style="-fx-background-color: ffff;" text="Nýtt Spil" AnchorPane.bottomAnchor="438.0" AnchorPane.rightAnchor="58.0" AnchorPane.topAnchor="185.0">
          <font>
             <Font name="Book Antiqua" size="15.0" />
          </font>
       </Button>
-      <Button fx:id="fxKomidnog" alignment="CENTER" layoutX="838.0" layoutY="264.0" mnemonicParsing="false" onAction="#komidNogHandler" prefHeight="49.0" prefWidth="130.0" style="-fx-background-color: ffff;" text="Komið Nóg" AnchorPane.bottomAnchor="368.0" AnchorPane.rightAnchor="58.0" AnchorPane.topAnchor="255.0">
+      <Button fx:id="fxKomidnog" alignment="CENTER" layoutX="838.0" layoutY="264.0" mnemonicParsing="false" onAction="#stand" prefHeight="49.0" prefWidth="130.0" style="-fx-background-color: ffff;" text="Komið Nóg" AnchorPane.bottomAnchor="368.0" AnchorPane.rightAnchor="58.0" AnchorPane.topAnchor="255.0">
          <font>
             <Font name="Book Antiqua" size="15.0" />
          </font>

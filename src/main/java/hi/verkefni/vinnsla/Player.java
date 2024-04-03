@@ -9,63 +9,40 @@ public class Player  implements PlayerInterface{
         this.cardsOnHand = 0;
     }
 
-    @Override
     public int getScore() {
         return scoreOnHand;
     }
 
-    @Override
-    public String getName() {
-        return null;
-    }
-
-    @Override
-    public void setName(String name) {
-
-    }
-
-    @Override
     public void drawCard(Card s) {
         if (cardsOnHand < 6){
             scoreOnHand += s.getNumber();
             cardsOnHand += 1;
-            System.out.println(s);
         }
     }
 
-    @Override
-    public boolean dealerWins(Player d) {
+    public boolean whoWins(Player d) {
         if ( this.scoreOnHand == 21 || d.scoreOnHand > 21){
-            return false;
+            return true;
         } else if (d.scoreOnHand == 21 || this.scoreOnHand > 21){
-            return true;
-        } else if ( d.scoreOnHand > this.scoreOnHand){
-            return true;
-        } else if (d.scoreOnHand < this.scoreOnHand){
             return false;
+        } else if ( d.scoreOnHand > this.scoreOnHand){
+            return false;
+        } else if (d.scoreOnHand < this.scoreOnHand){
+            return true;
         }
         return false;
     }
 
-    @Override
-    public Player whoWon(Player d) {
-        if (this.scoreOnHand == 21 || d.scoreOnHand > 21){
-            return this;
-        } else if ( d.scoreOnHand == 21 || this.scoreOnHand > 21){
-            return d;
-        }
-        return null;
-    }
-
-    @Override
     public void newGame() {
         this.scoreOnHand = 0;
         this.cardsOnHand = 0;
     }
 
-    @Override
     public boolean isBust() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isBust'");
+        return this.scoreOnHand > 21;
+    }
+
+    public boolean hasTwentyOne(){
+        return this.scoreOnHand == 21;
     }
 }
