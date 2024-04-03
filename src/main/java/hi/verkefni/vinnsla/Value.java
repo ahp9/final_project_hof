@@ -1,6 +1,6 @@
 package hi.verkefni.vinnsla;
 
-public enum Gildi {
+public enum Value {
     TVISTUR(2),
     THRISTUR(3),
     FJARKI(4),
@@ -15,18 +15,18 @@ public enum Gildi {
     KONGUR(10),
     AS(11);
 
-    private final int gildi;
+    private final int value;
 
-    Gildi(int gildi) {
-        this.gildi = gildi;
+    Value(int v) {
+        this.value = v;
     }
 
-    int getGildi() {
-        return gildi;
+    int getValue() {
+        return value;
     }
 
     public String toString() {
-        return ordinal () <9 ? String.valueOf(gildi) :name().substring(0,1);
+        return ordinal () <9 ? String.valueOf(value) :name().substring(0,1);
     }
 
 }

@@ -1,6 +1,6 @@
 package hi.verkefni.vinnsla;
 
-public enum Tegund {
+public enum Suit {
     HJARTA,
     SPADI,
     TIGULL,

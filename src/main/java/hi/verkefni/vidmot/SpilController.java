@@ -1,8 +1,9 @@
 package hi.verkefni.vidmot;
 
-import hi.verkefni.vinnsla.Leikmadur;
-import hi.verkefni.vinnsla.SpilV;
-import hi.verkefni.vinnsla.Stokkur;
+import hi.verkefni.vinnsla.Player;
+import hi.verkefni.vinnsla.Card;
+import hi.verkefni.vinnsla.Dealer;
+import hi.verkefni.vinnsla.Deck;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -35,9 +36,9 @@ public class SpilController implements Initializable {
     private Label fxSamtalsDealer;
 
 
-    private Leikmadur leikmadur = new Leikmadur();
-    private Stokkur stokkur = new Stokkur();
-    private Leikmadur dealer = new Leikmadur();
+    private Player leikmadur = new Player();
+    private Deck stokkur = new Deck();
+    private Player dealer = new Dealer();
 
 
     @Override
@@ -82,7 +83,7 @@ public class SpilController implements Initializable {
                 stada2();
             }
         }
-        fxSamtalsDealer.setText(dealer.getSamtals() + "");
+        fxSamtalsDealer.setText(dealer.getScore() + "");
     }
 
     /**
@@ -92,7 +93,9 @@ public class SpilController implements Initializable {
      */
     @FXML
     protected void komidNogHandler(){
-        while (dealer.getSamtals() < 17){
+        System.out.println();
+        while (!((Dealer) dealer).hasSeventeen()){
+            System.out.println(((Dealer) dealer).hasSeventeen());
             gefaDSpil();
         }
         if (sprakk()){
@@ -113,9 +116,9 @@ public class SpilController implements Initializable {
     protected void nyrLeikurHandler (){
         eydaMyndum();
         fxVinningur.setText("");
-        stokkur = new Stokkur();
-        leikmadur.nyrLeikur();
-        dealer.nyrLeikur();
+        stokkur = new Deck();
+        leikmadur.newGame();
+        dealer.newGame();
         stada1();
         for (int k = 0; k < 2; k++){
             gefaLSpil();
@@ -164,7 +167,7 @@ public class SpilController implements Initializable {
      * @param a SpilV sem var dregið úr stokk.
      * @return skilar SpilV umbreyttu í Spil
      */
-    private Spil nyttSpil(SpilV a){
+    private Spil nyttSpil(Card a){
         Spil aHendi = new Spil();
         aHendi.setSpil(a);
         return aHendi;
@@ -174,20 +177,20 @@ public class SpilController implements Initializable {
      * Setur spil á hendi leikmannsins og prentar út samtölu hans.
      */
     private void gefaLSpil(){
-        SpilV l = stokkur.dragaSpil();
+        Card l = stokkur.dragaSpil();
         fxLeikmadurHendi.getChildren().add(nyttSpil(l));
-        leikmadur.gefaSpil(l);
-        fxSamtalsLeikamdur.setText(leikmadur.getSamtals() + "");
+        leikmadur.drawCard(l);
+        fxSamtalsLeikamdur.setText(leikmadur.getScore() + "");
     }
 
     /**
      * Setur spil á hendi dealersins og prentar út samtölu hans.
      */
     private void gefaDSpil(){
-        SpilV d = stokkur.dragaSpil();
+        Card d = stokkur.dragaSpil();
         fxDealerHendi.getChildren().add(nyttSpil(d));
-        dealer.gefaSpil(d);
-        fxSamtalsDealer.setText(dealer.getSamtals() + "");
+        dealer.drawCard(d);
+        fxSamtalsDealer.setText(dealer.getScore() + "");
     }
 
     /**
@@ -197,10 +200,10 @@ public class SpilController implements Initializable {
      * hvorugur hefur unnið
      */
     private String finnaSigurvegara (){
-        if (leikmadur.hvorVann(dealer) == leikmadur){
-            return "Til hamingju " + fxNafnLeikmadur.getText() + ", þú vannst og með samtölu: " + leikmadur.getSamtals();
-        } else if (leikmadur.hvorVann(dealer) == dealer){
-            return "Því miður vann dealerinn með samtölu: " + dealer.getSamtals();
+        if (leikmadur.whoWon(dealer) == leikmadur){
+            return "Til hamingju " + fxNafnLeikmadur.getText() + ", þú vannst og með samtölu: " + leikmadur.getScore();
+        } else if (leikmadur.whoWon(dealer) == dealer){
+            return "Því miður vann dealerinn með samtölu: " + dealer.getScore();
         }
         return null;
     }
@@ -208,29 +211,29 @@ public class SpilController implements Initializable {
     /**
      * Tjékkar hvort dealerinn er búinn að vinna
      *
-     * @return skilar streng hvort dealerinng eða leikmaðurinn hefur unnið
+     * @return skilar streng hvort dealerinn eða leikmaðurinn hefur unnið
      */
     private String vinnurDealer(){
-        if (leikmadur.vinnurDealer(dealer)){
-            return "Því miður vann dealerinn með samtölu: " + dealer.getSamtals();
+        if (leikmadur.dealerWins(dealer)){
+            return "Því miður vann dealerinn með samtölu: " + dealer.getScore();
         } else {
-            return "Til hamingju " + fxNafnLeikmadur.getText() + ", þú vannst og með samtölu: " + leikmadur.getSamtals();
+            return "Til hamingju " + fxNafnLeikmadur.getText() + ", þú vannst og með samtölu: " + leikmadur.getScore();
         }
     }
 
     private boolean sprakk(){
-        if (leikmadur.getSamtals() > 21 ||dealer.getSamtals() > 21 ){
+        if (leikmadur.getScore() > 21 ||dealer.getScore() > 21 ){
             return true;
         }
         return false;
     }
 
     private String sprakkText(){
-        if (leikmadur.getSamtals() > 21){
-            return "Dealerinn vinnur, þú sprakkst: " + leikmadur.getSamtals();
+        if (leikmadur.getScore() > 21){
+            return "Dealerinn vinnur, þú sprakkst: " + leikmadur.getScore();
         } else {
             return "Til hamingju " + fxNafnLeikmadur.getText() + " þú vanst, dealerinn sprakk: " +
-                    dealer.getSamtals();
+                    dealer.getScore();
         }
     }
 }

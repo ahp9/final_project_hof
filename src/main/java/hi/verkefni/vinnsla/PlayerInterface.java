@@ -1,11 +1,11 @@
 package hi.verkefni.vinnsla;
 
-public interface LeikmadurInterface {
-    int getSamtals();
+public interface PlayerInterface {
+    int getScore();
 
-    String getNafn();
+    String getName();
 
-    void setNafn(String nafn);
+    void setName(String nafn);
 
     /**
      * Leikmaður má hafa mest max fjölda spila á hendi.
@@ -14,7 +14,7 @@ public interface LeikmadurInterface {
      *
      * @param s spilið sem á að gefa leikmanni
      */
-    void gefaSpil(SpilV s);
+    void drawCard(Card s);
 
     /**
      * Athugar hvort d hefur unnið leikmanninn
@@ -22,7 +22,7 @@ public interface LeikmadurInterface {
      * @param d dealer
      * @return satt ef d hefur unnið, annars false
      */
-    boolean vinnurDealer(Leikmadur d);
+    boolean dealerWins(Player d);
 
     /**
      * Skila hvaða leikmaður vann d (dealerinn) eða þessi leikmaður
@@ -30,10 +30,17 @@ public interface LeikmadurInterface {
      * @param d - andstæðingur leikmannsins
      * @return - skilar þeim leikmanni sem vann  - null ef hvorugur vann
      */
-    Leikmadur hvorVann(Leikmadur d);
+    Player whoWon(Player d);
+
+    /**
+     * Athugar hvort leikmaður er sprunginn
+     * 
+     * @return - true ef leikmaður er sprunginn, annars false
+     */
+    boolean isBust();
 
     /**
      * Leikmaður tekur þátt í nýjum leik, samtala og fjöldi spila á hendi er 0
      */
-    void nyrLeikur();
+    void newGame();
 }
