@@ -102,7 +102,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.2.0</version>
                 <configuration>
-                    <mainClass>hi.verkefni.vidmot/hi.verkefni.vidmot.SpilApplication</mainClass>
+                    <mainClass>hi.verkefni.vidmot/hi.verkefni.vidmot.BlackJackApplication</mainClass>
                 </configuration>
             </plugin>
             <plugin>
@@ -123,7 +123,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>hi.verkefni.vidmot/hi.verkefni.vidmot.SpilApplication</mainClass>
+                            <mainClass>hi.verkefni.vidmot/hi.verkefni.vidmot.BlackJackApplication</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

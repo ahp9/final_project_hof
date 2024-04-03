@@ -14,7 +14,7 @@ import javafx.scene.layout.HBox;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SpilController implements Initializable {
+public class BlackJackController implements Initializable {
     @FXML
     public Button fxnyrLeikur;
     @FXML
@@ -40,7 +40,7 @@ public class SpilController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        LeikmadurDialog l = new LeikmadurDialog();
+        PlayerDialog l = new PlayerDialog();
         String playersName = l.playersName();
         if (playersName != null) {
             fxNafnLeikmadur.setText(playersName + "");

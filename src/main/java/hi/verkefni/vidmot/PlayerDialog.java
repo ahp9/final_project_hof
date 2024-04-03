@@ -7,7 +7,7 @@ import javafx.scene.control.*;
 import java.io.IOException;
 import java.util.Optional;
 
-public class LeikmadurDialog extends DialogPane {
+public class PlayerDialog extends DialogPane {
 
     @FXML
     private TextField fxLeikmadur;
@@ -15,7 +15,7 @@ public class LeikmadurDialog extends DialogPane {
     /**
      * Smiður LeikmaðurDialog
      */
-    public LeikmadurDialog(){
+    public PlayerDialog(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("leikmadur-view.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
