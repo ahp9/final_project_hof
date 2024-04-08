@@ -3,7 +3,7 @@ package hi.verkefni.vinnsla;
 public class Deck {
     private final Card[] deck = new Card[52];
     private final boolean [] usedCard = new boolean[52];
-    private int total=0;   // fjöldi spila sem búið er að draga úr stokknum
+    private int total = 0;   // fjöldi spila sem búið er að draga úr stokknum
 
     /**
      * Upphafsstillir spilastokk með 52 spilum

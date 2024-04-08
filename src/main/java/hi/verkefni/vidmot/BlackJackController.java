@@ -16,11 +16,11 @@ import java.util.ResourceBundle;
 
 public class BlackJackController implements Initializable {
     @FXML
-    public Button fxnyrLeikur;
+    private Button fxnyrLeikur;
     @FXML
-    public Button fxNyttSpil;
+    private Button fxNyttSpil;
     @FXML
-    public Button fxKomidnog;
+    private Button fxKomidnog;
     @FXML
     private HBox fxDealerHendi;
     @FXML
@@ -157,9 +157,9 @@ public class BlackJackController implements Initializable {
      * @param a SpilV sem var dregið úr stokk.
      * @return skilar SpilV umbreyttu í Spil
      */
-    private CardUI newCard(Card a) {
+    private CardUI newCard(Card s) {
         CardUI aHendi = new CardUI();
-        aHendi.setCardUI(a);
+        aHendi.setCardUI(s);
         return aHendi;
     }
 

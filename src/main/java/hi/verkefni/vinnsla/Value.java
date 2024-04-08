@@ -15,18 +15,18 @@ public enum Value {
     KONGUR(10),
     AS(11);
 
-    private final int value;
+    private final int VALUE;
 
     Value(int v) {
-        this.value = v;
+        this.VALUE = v;
     }
 
-    int getValue() {
-        return value;
+    int getVALUE() {
+        return VALUE;
     }
 
     public String toString() {
-        return ordinal () <9 ? String.valueOf(value) :name().substring(0,1);
+        return ordinal () <9 ? String.valueOf(VALUE) :name().substring(0,1);
     }
 
 }

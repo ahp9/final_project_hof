@@ -19,7 +19,7 @@ public class Card {
      * @return heiltölugildi spils
      */
     public int getNumber() {
-        return value.getValue();
+        return value.getVALUE();
     }
 
     public Suit getSuit() {
