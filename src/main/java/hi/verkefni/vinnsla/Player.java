@@ -1,6 +1,6 @@
 package hi.verkefni.vinnsla;
 
-public class Player  implements PlayerInterface{
+public class Player extends Observable implements PlayerInterface{
     private int scoreOnHand;
     private int cardsOnHand;
 
@@ -17,6 +17,7 @@ public class Player  implements PlayerInterface{
         if (cardsOnHand < 6){
             scoreOnHand += s.getNumber();
             cardsOnHand += 1;
+            notifyObservers();
         }
     }
 
