@@ -43,17 +43,50 @@ public class BlackJackController implements Initializable, Observer {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         PlayerDialog l = new PlayerDialog();
         String playersName = l.playersName();
-        player.attach(this);
-        dealer.attach(this);
-        if (playersName != null) {
-            fxNafnLeikmadur.setText(playersName + "");
 
-            gameInPlayState();
+        if (playersName != null) {
+            player.attach(this);
+            dealer.attach(this);
+
+            fxNafnLeikmadur.setText(playersName + "");
             gameSetup();
         } else {
             Platform.exit();
         }
 
+    }
+
+    @Override
+    public void update() {
+        fxSamtalsLeikamdur.setText(player.getScore() + "");
+        fxSamtalsDealer.setText(dealer.getScore() + "");
+    }
+
+    private void gameSetup() {
+        for (int k = 0; k < 2; k++) {
+            playerDraw(player, false);
+            playerDraw(dealer, true);
+        }
+        if (findWinner(false) != null) {
+            fxVinningur.setText(findWinner(false));
+
+            gameState(false, true, true);
+        } else {
+            gameState(true, false, false);
+        }
+    }
+
+    /**
+     * Setur spil á hendi leikmannsins og prentar út samtölu hans.
+     */
+    private void playerDraw(Player p, boolean isDealer) {
+        Card l = deck.dragaSpil();
+        if (isDealer) {
+            fxDealerHendi.getChildren().add(newCard(l));
+        } else {
+            fxLeikmadurHendi.getChildren().add(newCard(l));
+        }
+        p.drawCard(l);
     }
 
     /**
@@ -62,15 +95,11 @@ public class BlackJackController implements Initializable, Observer {
      */
     @FXML
     protected void drawNewCard() {
-        playerDraws();
-        if (findWinner() != null) {
-            if (player.isBust() || dealer.isBust()) {
-                fxVinningur.setText(sprakkText());
-                gameFinishedState();
-            } else {
-                fxVinningur.setText(findWinner());
-                gameFinishedState();
-            }
+        playerDraw(player, false);
+        if (findWinner(false) != null) {
+            fxVinningur.setText(findWinner(false));
+
+            gameState(false, true, true);
         }
         fxSamtalsDealer.setText(dealer.getScore() + "");
     }
@@ -83,15 +112,12 @@ public class BlackJackController implements Initializable, Observer {
     @FXML
     protected void stand() {
         while (!((Dealer) dealer).hasSeventeen()) {
-            dealerDraws();
+            playerDraw(dealer, true);
         }
-        if (player.isBust() || dealer.isBust()) {
-            fxVinningur.setText(sprakkText());
-            gameFinishedState();
-        } else {
-            fxVinningur.setText(whoWon());
-            gameFinishedState();
-        }
+
+        fxVinningur.setText(findWinner(true));
+        gameState(false, true, true);
+
     }
 
     /**
@@ -106,52 +132,8 @@ public class BlackJackController implements Initializable, Observer {
         deck = new Deck();
         player.newGame();
         dealer.newGame();
-        gameInPlayState();
+        gameState(true, false, false);
         gameSetup();
-    }
-
-    private void gameSetup() {
-        for (int k = 0; k < 2; k++) {
-            playerDraws();
-            dealerDraws();
-        }
-        if (findWinner() != null) {
-            if (player.isBust() || dealer.isBust()) {
-                fxVinningur.setText(sprakkText());
-                gameFinishedState();
-            } else {
-                fxVinningur.setText(findWinner());
-                gameFinishedState();
-            }
-        }
-    }
-
-    /**
-     * Óvirkir Nýr Leikur hnappinn á meðan verið er að spila.
-     * Nýtt Spil og Komið Nóg er enn virkir
-     */
-    private void gameInPlayState() {
-        fxnyrLeikur.setDisable(true);
-        fxNyttSpil.setDisable(false);
-        fxKomidnog.setDisable(false);
-    }
-
-    /**
-     * Óvirkjar Nýtt spil og Komið nóg en virkir Nýr leikur.
-     * Gerist þegar leikur er búinn.
-     */
-    private void gameFinishedState() {
-        fxnyrLeikur.setDisable(false);
-        fxNyttSpil.setDisable(true);
-        fxKomidnog.setDisable(true);
-    }
-
-    /**
-     * Eyðir spilum frá fyrrum leik.
-     */
-    private void removeCards() {
-        fxLeikmadurHendi.getChildren().removeAll(fxLeikmadurHendi.getChildren());
-        fxDealerHendi.getChildren().removeAll(fxDealerHendi.getChildren());
     }
 
     /**
@@ -167,61 +149,52 @@ public class BlackJackController implements Initializable, Observer {
     }
 
     /**
-     * Setur spil á hendi leikmannsins og prentar út samtölu hans.
-     */
-    private void playerDraws() {
-        Card l = deck.dragaSpil();
-        fxLeikmadurHendi.getChildren().add(newCard(l));
-        player.drawCard(l);
-    }
-
-    /**
-     * Setur spil á hendi dealersins og prentar út samtölu hans.
-     */
-    private void dealerDraws() {
-        Card d = deck.dragaSpil();
-        fxDealerHendi.getChildren().add(newCard(d));
-        dealer.drawCard(d);
-    }
-
-    /**
      * Tjékkar hvort einhver er búinn að vinna
-     *
-     * @return skilar streng þess sem er búinn að vinna eða skilar engu ef
+     * 
+     * @param playerStands segir til hvort leikmaður vill standa
+     *                     og finnur sigurvegara útfrá þeirra niðurstöðu.
+     * 
+     * @return skilar viðeigandi streng eftir því hvor vann eða skilar engu ef
      *         hvorugur hefur unnið
      */
-    private String findWinner() {
+    private String findWinner(boolean playerStands) {
         if (player.hasTwentyOne() || dealer.isBust()) {
             return "Til hamingju " + fxNafnLeikmadur.getText() + ", þú vannst og með samtölu: " + player.getScore();
         } else if (dealer.hasTwentyOne() || player.isBust()) {
             return "Því miður vann dealerinn með samtölu: " + dealer.getScore();
         }
+        if (playerStands) {
+            if (player.getScore() == dealer.getScore()) {
+                return "Það varð jafntefli";
+            }
+            if (player.whoWins(dealer)) {
+                return "Til hamingju " + fxNafnLeikmadur.getText() + ", þú vannst og með samtölu: " + player.getScore();
+            } else {
+                return "Því miður vann dealerinn með samtölu: " + dealer.getScore();
+            }
+        }
+
         return null;
     }
 
-    private String whoWon() {
-        if (player.getScore() == dealer.getScore()) {
-            return "Draw";
-        }
-        if (player.whoWins(dealer)) {
-            return "Player";
-        } else {
-            return "Dealer";
-        }
+    /**
+     * Breytir stöðu hnappa eftir því hver staðan er í leiknum.
+     * 
+     * @param newGame er nýr leikur
+     * @param newCard er hægt að setja nýtt spil
+     * @param isDone  er leikmaður kominn með nóg
+     */
+    private void gameState(boolean newGame, boolean newCard, boolean isDone) {
+        fxnyrLeikur.setDisable(newGame);
+        fxNyttSpil.setDisable(newCard);
+        fxKomidnog.setDisable(isDone);
     }
 
-    private String sprakkText() {
-        if (player.getScore() > 21) {
-            return "Dealerinn vinnur, þú sprakkst: " + player.getScore();
-        } else {
-            return "Til hamingju " + fxNafnLeikmadur.getText() + " þú vannst, dealerinn sprakk: " +
-                    dealer.getScore();
-        }
-    }
-
-    @Override
-    public void update() {
-        fxSamtalsLeikamdur.setText(player.getScore() + "");
-        fxSamtalsDealer.setText(dealer.getScore() + "");
+    /**
+     * Eyðir spilum frá fyrrum leik.
+     */
+    private void removeCards() {
+        fxLeikmadurHendi.getChildren().removeAll(fxLeikmadurHendi.getChildren());
+        fxDealerHendi.getChildren().removeAll(fxDealerHendi.getChildren());
     }
 }
