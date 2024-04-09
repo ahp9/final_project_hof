@@ -4,6 +4,7 @@ import hi.verkefni.vinnsla.Player;
 import hi.verkefni.vinnsla.Card;
 import hi.verkefni.vinnsla.Dealer;
 import hi.verkefni.vinnsla.Deck;
+import hi.verkefni.vinnsla.Observer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,7 +15,7 @@ import javafx.scene.layout.HBox;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class BlackJackController implements Initializable {
+public class BlackJackController implements Initializable, Observer {
     @FXML
     private Button fxnyrLeikur;
     @FXML
@@ -42,6 +43,8 @@ public class BlackJackController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         PlayerDialog l = new PlayerDialog();
         String playersName = l.playersName();
+        player.attach(this);
+        dealer.attach(this);
         if (playersName != null) {
             fxNafnLeikmadur.setText(playersName + "");
 
@@ -170,7 +173,6 @@ public class BlackJackController implements Initializable {
         Card l = deck.dragaSpil();
         fxLeikmadurHendi.getChildren().add(newCard(l));
         player.drawCard(l);
-        fxSamtalsLeikamdur.setText(player.getScore() + "");
     }
 
     /**
@@ -180,7 +182,6 @@ public class BlackJackController implements Initializable {
         Card d = deck.dragaSpil();
         fxDealerHendi.getChildren().add(newCard(d));
         dealer.drawCard(d);
-        fxSamtalsDealer.setText(dealer.getScore() + "");
     }
 
     /**
@@ -216,5 +217,11 @@ public class BlackJackController implements Initializable {
             return "Til hamingju " + fxNafnLeikmadur.getText() + " þú vanst, dealerinn sprakk: " +
                     dealer.getScore();
         }
+    }
+
+    @Override
+    public void update() {
+        fxSamtalsLeikamdur.setText(player.getScore() + "");
+        fxSamtalsDealer.setText(dealer.getScore() + "");
     }
 }
