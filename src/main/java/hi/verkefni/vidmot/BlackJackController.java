@@ -214,7 +214,7 @@ public class BlackJackController implements Initializable, Observer {
         if (player.getScore() > 21) {
             return "Dealerinn vinnur, þú sprakkst: " + player.getScore();
         } else {
-            return "Til hamingju " + fxNafnLeikmadur.getText() + " þú vanst, dealerinn sprakk: " +
+            return "Til hamingju " + fxNafnLeikmadur.getText() + " þú vannst, dealerinn sprakk: " +
                     dealer.getScore();
         }
     }

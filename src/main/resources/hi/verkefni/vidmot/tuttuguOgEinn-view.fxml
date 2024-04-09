@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="1026.0" style="-fx-background-color: #224075;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hi.verkefni.vidmot.BlackJackController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="1026.0" style="-fx-background-color: #224075;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hi.verkefni.vidmot.BlackJackController">
    <children>
       <AnchorPane layoutX="63.0" layoutY="116.0" prefHeight="442.0" prefWidth="712.0" style="-fx-background-color: #49B676;" AnchorPane.bottomAnchor="115.0" AnchorPane.topAnchor="115.0">
          <children>
@@ -54,22 +54,22 @@
             <Font name="Book Antiqua" size="26.0" />
          </font>
       </Label>
-      <Label layoutX="818.0" layoutY="402.0" prefHeight="49.0" prefWidth="95.0" text="Leikmaður:" textFill="WHITE">
+      <Label layoutX="803.0" layoutY="476.0" prefHeight="49.0" prefWidth="95.0" text="Leikmaður:" textFill="WHITE">
          <font>
             <Font name="Book Antiqua" size="17.0" />
          </font>
       </Label>
-      <Label fx:id="fxSamtalsLeikamdur" alignment="CENTER" layoutX="913.0" layoutY="402.0" prefHeight="49.0" prefWidth="85.0" textFill="WHITE">
+      <Label fx:id="fxSamtalsLeikamdur" alignment="CENTER" layoutX="903.0" layoutY="476.0" prefHeight="49.0" prefWidth="85.0" textFill="WHITE">
          <font>
             <Font name="Book Antiqua" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="818.0" layoutY="451.0" prefHeight="49.0" prefWidth="95.0" text="Dealer:" textFill="WHITE">
+      <Label layoutX="807.0" layoutY="426.0" prefHeight="49.0" prefWidth="95.0" text="Dealer:" textFill="WHITE">
          <font>
             <Font name="Book Antiqua" size="17.0" />
          </font>
       </Label>
-      <Label fx:id="fxSamtalsDealer" alignment="CENTER" layoutX="903.0" layoutY="451.0" prefHeight="49.0" prefWidth="85.0" textFill="WHITE">
+      <Label fx:id="fxSamtalsDealer" alignment="CENTER" layoutX="903.0" layoutY="426.0" prefHeight="49.0" prefWidth="85.0" textFill="WHITE">
          <font>
             <Font name="Book Antiqua" size="15.0" />
          </font>
