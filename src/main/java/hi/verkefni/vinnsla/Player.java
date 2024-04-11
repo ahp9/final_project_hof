@@ -9,10 +9,13 @@ public class Player extends Observable implements PlayerInterface{
         this.cardsOnHand = 0;
     }
 
-    public int getScore() {
-        return scoreOnHand;
-    }
-
+    /**
+     * Leikmaður má hafa mest max fjölda spila á hendi.
+     * Gefur leikmanni spil s ef max er ekki náð
+     * Uppfærir samtölu spila
+     * 
+     * @param s spilið sem á að gefa leikmanni
+     */
     public void drawCard(Card s) {
         if (cardsOnHand < 6){
             scoreOnHand += s.getNumber();
@@ -21,6 +24,12 @@ public class Player extends Observable implements PlayerInterface{
         }
     }
 
+    /**
+     * Athugar hvort d hefur unnið leikmanninn
+     * 
+     * @param d dealer
+     * @return true ef d hefur unnið, annars false
+     */
     public boolean whoWins(Player d) {
         if ( this.scoreOnHand == 21 || d.scoreOnHand > 21){
             return true;
@@ -34,16 +43,33 @@ public class Player extends Observable implements PlayerInterface{
         return false;
     }
 
+    /**
+     * Leikmaður tekur þátt í nýjum leik, samtala og fjöldi spila á hendi er 0
+     */
     public void newGame() {
         this.scoreOnHand = 0;
         this.cardsOnHand = 0;
     }
 
+    /**
+     * Athugar hvort leikmaður er sprunginn
+     * 
+     * @return true ef leikmaður er sprunginn, annars false
+     */
     public boolean isBust() {
         return this.scoreOnHand > 21;
     }
 
+    /**
+     * Athugar hvort leikmaður fékk 21
+     * 
+     * @return true ef leikmaður fékk 21, annars false
+     */
     public boolean hasTwentyOne(){
         return this.scoreOnHand == 21;
+    }
+    
+    public int getScore() {
+        return scoreOnHand;
     }
 }

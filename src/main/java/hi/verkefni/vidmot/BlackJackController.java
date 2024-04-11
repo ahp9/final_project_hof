@@ -143,9 +143,9 @@ public class BlackJackController implements Initializable, Observer {
      * @return skilar SpilV umbreyttu í Spil
      */
     private CardUI newCard(Card s) {
-        CardUI aHendi = new CardUI();
-        aHendi.setCardUI(s);
-        return aHendi;
+        CardUI onHand = new CardUI();
+        onHand.setCardUI(s);
+        return onHand;
     }
 
     /**
