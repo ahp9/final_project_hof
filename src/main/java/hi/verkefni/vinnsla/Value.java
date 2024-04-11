@@ -25,4 +25,8 @@ public enum Value {
         return VALUE;
     }
 
+    public String toString() {
+        return ordinal () <9 ? String.valueOf(VALUE) :name().substring(0,1);
+    }
+
 }
