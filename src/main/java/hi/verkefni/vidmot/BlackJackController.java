@@ -80,7 +80,7 @@ public class BlackJackController implements Initializable, Observer {
      * Setur spil á hendi leikmannsins og prentar út samtölu hans.
      */
     private void playerDraw(Player p, boolean isDealer) {
-        Card l = deck.dragaSpil();
+        Card l = deck.drawCard();
         if (isDealer) {
             fxDealerHendi.getChildren().add(newCard(l));
         } else {

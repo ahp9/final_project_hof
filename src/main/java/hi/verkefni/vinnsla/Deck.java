@@ -22,7 +22,7 @@ public class Deck {
      *
      * @return spil af handahófi ef eitthvert spil er eftir í stokknum annars null
      */
-    public Card dragaSpil() {
+    public Card drawCard() {
         int nextCard;
         if (total == 52)
             return null;
