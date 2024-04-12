@@ -5,6 +5,11 @@ import org.junit.Test;
 
 public class CardTest {
 
+    /**
+     * Býr til nýjan stokk.
+     * Prófar hvort að stokkurinn sé nokkuð tómur.
+     * Prófar hvort suit sé það sama og getSuit, sama með value og getValue.
+     */
     @Test
     public void createCard() {
         Suit suit = Suit.HJARTA;
@@ -16,6 +21,9 @@ public class CardTest {
         assertEquals(value, card.getValue());
     }
 
+    /**
+     * Prófar hvort að númer og tegund af spili samsvarar réttu gildi frá getNumber.
+     */
     @Test
     public void testGetNumber() {
         Card card = new Card(Suit.SPADI, Value.TVISTUR);
