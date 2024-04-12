@@ -1,9 +1,9 @@
 package hi.verkefni.vinnsla;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class DealerTest {
     
@@ -12,7 +12,7 @@ public class DealerTest {
     /**
      * Býr til nýjan Dealer
      */
-    @Before
+    @BeforeEach
     public void createDealer(){
         dealer = new Dealer();
     }

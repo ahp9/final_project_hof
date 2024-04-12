@@ -1,12 +1,9 @@
 package hi.verkefni.vinnsla;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
-import org.junit.Before;
-import org.junit.Test;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 public class PlayerTest {
 
     private Player player;
@@ -16,7 +13,7 @@ public class PlayerTest {
     /**
      * Býr til nýja leikmenn.
      */
-    @Before
+    @BeforeEach
     public void constructionPlayerTestObjects() {
         player = new Player();
         player1 = new Player();
