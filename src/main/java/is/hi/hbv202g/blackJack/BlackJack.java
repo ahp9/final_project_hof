@@ -8,6 +8,9 @@ public class BlackJack implements Observer {
     private Deck deck;
     private Dealer dealer;
 
+    private static final String NEW_GAME_PROMPT = "Viltu spila nyjan leik?";
+    private static final String PLAYER_MOVE_PROMPT = "If you want to Stand please press 1. If you want a new Card please press 2.";
+
     public BlackJack() {
         this.player = new Player();
         this.deck = new Deck();
@@ -60,21 +63,22 @@ public class BlackJack implements Observer {
     }
 
     private void gameState(boolean newGame){
-        try (Scanner s = new Scanner(System.in, StandardCharsets.UTF_8)) {
-            if(newGame){
-                System.out.println("Viltu spila nyjan leik?");
-            } else {
-                System.out.println("If you want to Stand pls press 1. If you want a new Card pls press 2.");
-            }
-
-            int nextMove = s.nextInt();
-
-            if(nextMove == 1){
-                System.out.println("He stands");
-            } else if(nextMove == 2){
-                System.out.println("Wants a new card");
-            } else {
-                System.out.println("Eitthvað");
+        try (Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8)) {
+            System.out.println(newGame ? NEW_GAME_PROMPT : PLAYER_MOVE_PROMPT);
+            String nextMove = scanner.next();
+            switch (nextMove) {
+                case "1":
+                    System.out.println("Player stands");
+                    break;
+                case "2":
+                    System.out.println("Player wants a new card");
+                    break;
+                case "y":
+                    System.out.println("Player wants a new game");
+                    startGame();
+                    break;
+                default:
+                    System.out.println("Player is done");
             }
         }
     }
