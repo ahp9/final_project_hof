@@ -8,8 +8,10 @@ public class BlackJack implements Observer {
     private Deck deck;
     private Dealer dealer;
 
-    private static final String NEW_GAME_PROMPT = "Viltu spila nyjan leik?";
+    private static final String NEW_GAME_PROMPT = "Do you want to play another game?";
     private static final String PLAYER_MOVE_PROMPT = "If you want to Stand please press 1. If you want a new Card please press 2.";
+    private static final String PLAYER_WON_TEXT = "Congratulations, you won and with:";
+    private static final String DEALER_WON_TEXT = "Im sorry, the dealer won with";
 
     public BlackJack() {
         this.player = new Player();
@@ -17,6 +19,15 @@ public class BlackJack implements Observer {
         this.dealer = new Dealer();
         this.player.attach(this);
         this.dealer.attach(this);
+    }
+
+    @Override
+    public void update() {
+        if(player.getCards().size() > 1 && dealer.getCards().size() > 1){
+            System.out.println("Dealer spil: " + dealer.getCards() + ". Samtals: " + dealer.getScore());
+            System.out.println("------------------------------");
+            System.out.println("Spilin þín:  " + player.getCards() + ". Samtals: " + player.getScore());
+        }
     }
 
     /**
@@ -27,14 +38,7 @@ public class BlackJack implements Observer {
             playersDraw(player);
             playersDraw(dealer);
         }
-        if(findWinner(false) != null){
-            System.out.println(findWinner(false));
-            gameState(true);
-        } else {
-            System.out.println(player.getCards());
-            System.out.println(dealer.getCards());
-            gameState(false);
-        }
+        checkGame(false);
     }
 
     private void playersDraw(Player player){
@@ -44,18 +48,18 @@ public class BlackJack implements Observer {
 
     private String findWinner(boolean playerStands){
         if (player.hasTwentyOne() || dealer.isBust()) {
-            return "Til hamingju, þú vannst og með samtölu: " + player.getScore();
+            return PLAYER_WON_TEXT + player.getScore();
         } else if (dealer.hasTwentyOne() || player.isBust()) {
-            return "Því miður vann dealerinn með samtölu: " + dealer.getScore();
+            return DEALER_WON_TEXT + dealer.getScore();
         }
         if (playerStands) {
             if (player.getScore() == dealer.getScore()) {
                 return "Það varð jafntefli";
             }
             if (player.whoWins(dealer)) {
-                return "Til hamingju , þú vannst og með samtölu: " + player.getScore();
+                return PLAYER_WON_TEXT + player.getScore();
             } else {
-                return "Því miður vann dealerinn með samtölu: " + dealer.getScore();
+                return DEALER_WON_TEXT + dealer.getScore();
             }
         }
 
@@ -69,13 +73,15 @@ public class BlackJack implements Observer {
             switch (nextMove) {
                 case "1":
                     System.out.println("Player stands");
+                    stand();
                     break;
                 case "2":
                     System.out.println("Player wants a new card");
+                    drawNewCard();
                     break;
                 case "y":
                     System.out.println("Player wants a new game");
-                    startGame();
+                    newGame();
                     break;
                 default:
                     System.out.println("Player is done");
@@ -83,10 +89,34 @@ public class BlackJack implements Observer {
         }
     }
 
-    @Override
-    public void update() {
-        //Seinna
+    private void checkGame(boolean playerStands){
+        if(findWinner(playerStands) != null){
+            System.out.println(findWinner(false));
+            gameState(true);
+        } else {
+            gameState(false);
+        }
     }
+
+    private void drawNewCard(){
+        playersDraw(player);
+        checkGame(false);
+    }
+
+    private void stand(){
+        while(!(dealer.hasSeventeen())){
+            playersDraw(dealer);
+        }
+        checkGame(true);
+    }
+
+    private void newGame(){
+        deck = new Deck();
+        player.newGame();
+        dealer.newGame();
+        startGame();
+    }
+
 
     public static void main(String[] args) {
         BlackJack game = new BlackJack();
