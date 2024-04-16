@@ -1,44 +1,60 @@
 # Lokaverkefni 2024 - Hugbúnaðarhönnun og forritun
 Ástríður Haraldsdóttir Passauer og Sylvía Hanna Tyrfingsdóttir
 
-## Yfirlit
-Ákveðið var að taka gamalt verkefni úr Viðmótsforritun 2022 en ákveðið var að taka út JavaFX virknina.
-Verkefnið er útfærsla á BlackJack og er leikinn .....
+## Overview
+We decided to implement an old project from Graphical User Interface Programming 2022, but without the JavaFX. 
+The project is an version of BlackJack, where you as a player are playing Black Jack against the dealer.
+The project skeleton implementes *Observer* pattern and some sort of *Template Method* pattern. 
 
-## Uppsetning
+This project is a Maven project, i.e. uses the standard Maven project sturcture. 
 
-### Forkröfur
-Athugið að eftirfarandi þarf að vera uppsett á þínu tölvukerfi:
+## Installation
+
+### System requirements
+Make sure you have the following installed on your system:
 - Java Development Kit (JDK)
 
-### Klóna repo
-Til þess að geta keyrt verkefni locally þarf að ná í repo og klóna repoið með eftirfarandi skipun
+### Clone repo
+To be able to run the project locally, you will have to clone the repo with the following command:
 ```sh
 git clone https://github.com/ahp9/final_project_hof.git
 ```
 
 ### Maven
-Ef einstaklingur er með Maven eru eftirfarandi skipanir keyrðar:
-
-Þýða (e. compile) verkefnið
+If user has Maven in the system, the following command will setup and run the project:
+Compiles all implementation classes
 ```sh
 mvn compile
 ```
-Til að þjappa (e. package) verkefninu inn í JAR skrá:
+Packages the project classes into a JAR file
 ```sh
 mvn package
 ```
-Til að búa til vefskýrslu skaltu keyra:
+Generates a site report for the project
 ```sh
 mvn site
 ```
-Til að keyra verkefnið skaltu nota eftirfarandi skipun:
+Runs all test cases (i.e. all classes with a name that end with `Test`)
+```sh
+mvn test
+```
+Runs the project
 ```sh
 mvn exec:java
 ```
 
-### Keyra án Maven
-Ef einstaklingur er ekki með Maven getur verkefnið verið keyrt með eftirfarandi skipun:
+### Running without Maven
+If user does not have Maven, the project can be executed with the following command:
 ```sh
 .\runjar.cmd
 ```
+
+
+
+## Site
+You can find the UML Class diagram with the folllowing link
+[UML-diagram](src\site\markdown\UML.md)
+
+
+## License
+Hægt er að finna License á eftirfarandi link: [LICENCE](LICENSE)
