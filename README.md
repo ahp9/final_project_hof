@@ -19,19 +19,19 @@ git clone https://github.com/ahp9/final_project_hof.git
 
 ### Maven
 Ef einstaklingur er með Maven eru eftirfarandi skipanir keyrðar:
-- Þýða (e. compile) verkefnið
+Þýða (e. compile) verkefnið
 ```sh
 mvn compile
 ```
-- Til að þjappa (e. package) verkefninu inn í JAR skrá:
+Til að þjappa (e. package) verkefninu inn í JAR skrá:
 ```sh
 mvn package
 ```
-- Til að búa til vefskýrslu skaltu keyra:
+Til að búa til vefskýrslu skaltu keyra:
 ```sh
 mvn site
 ```
-- Til að keyra verkefnið skaltu nota eftirfarandi skipun:
+Til að keyra verkefnið skaltu nota eftirfarandi skipun:
 ```sh
 mvn exec:java
 ```
