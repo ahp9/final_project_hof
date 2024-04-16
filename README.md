@@ -45,6 +45,12 @@ mvn exec:java
 
 ### Running without Maven
 If user does not have Maven, the project can be executed with the following command:
+
+Package classes and create jar file:
+```sh
+.\createjar.cmd
+```
+Run jar file
 ```sh
 .\runjar.cmd
 ```

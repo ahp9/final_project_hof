@@ -18,10 +18,19 @@ public class PlayerTest {
      * Býr til nýja leikmenn.
      */
     @Before
-    public void constructionPlayerTestObjects() {
+    public void createPlayers() {
         player = new Player();
         player1 = new Player();
-        dealer = new Player();
+        dealer = new Dealer();
+    }
+
+    /**
+     * Prófar hvort nýr leikmaður sé með 0 stig og 0 spil
+     */
+    @Test
+    public void playerIsEmpty() {
+        assertEquals(0, player.getScore());
+        assertEquals(0, player.getCards().size());
     }
 
     /**
@@ -31,6 +40,15 @@ public class PlayerTest {
     public void testGetScore() {
         player.drawCard(new Card(Suit.SPADE, Value.FIVE));
         assertEquals(5, player.getScore());
+    }
+
+    /**
+     * Prófar hvort spilið sem leikmaður dregur samsvari ekki réttum stigafjölda. 
+     */
+    @Test 
+    public void testGetWrongScore() {
+        player.drawCard(new Card(Suit.SPADE, Value.FIVE));
+        assertFalse(player.getScore() != 5);
     }
 
     /**

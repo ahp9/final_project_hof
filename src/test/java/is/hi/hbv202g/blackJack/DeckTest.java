@@ -35,6 +35,7 @@ public class DeckTest {
     @Test
     public void testDrawCardEmptyDeck() {
         for (int i = 0; i < 52; i++) {
+            @SuppressWarnings("unused")
             Card card = deck.drawCard();
         }
 

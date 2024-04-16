@@ -22,11 +22,12 @@ public class DealerTest {
     }
 
     /**
-     * Prófar hvort að Dealer sé með 0 stig.
+     * Prófar hvort að Dealer sé með 0 stig og 0 spil
      */
     @Test
     public void dealerIsEmpty(){
         assertEquals(dealer.getScore(), 0);
+        assertEquals(0, dealer.getCards().size());
     }
 
     /**
