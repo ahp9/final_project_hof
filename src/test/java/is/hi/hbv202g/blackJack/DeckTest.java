@@ -34,7 +34,7 @@ public class DeckTest {
      */
     @Test
     public void testDrawCardInDeck(){
-        Card card = new Card(Suit.SPADI, Value.TVISTUR);
+        Card card = new Card(Suit.SPADE, Value.TWO);
 
         for(int i = 0; i < 52; i++){
             Card drawnCard = deck.drawCard();

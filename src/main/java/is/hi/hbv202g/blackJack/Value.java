@@ -1,19 +1,19 @@
 package is.hi.hbv202g.blackJack;
 
 public enum Value {
-    TVISTUR(2),
-    THRISTUR(3),
-    FJARKI(4),
-    FIMMA(5),
-    SEXA(6),
-    SJOA(7),
-    ATTA(8),
-    NIA(9),
-    TIA(10),
-    GOSI(10),
-    DROTTNING(10),
-    KONGUR(10),
-    AS(11);
+    TWO(2),
+    THREE(3),
+    FOUR(4),
+    FIVE(5),
+    SIX(6),
+    SEVEN(7),
+    EIGHT(8),
+    NINE(9),
+    TEN(10),
+    JACK(10),
+    QUEEN(10),
+    KING(10),
+    ACE(11);
 
     private final int VALUE;
 

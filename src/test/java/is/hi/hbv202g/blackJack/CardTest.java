@@ -16,8 +16,8 @@ public class CardTest {
      */
     @Test
     public void createCard() {
-        Suit suit = Suit.HJARTA;
-        Value value = Value.AS;
+        Suit suit = Suit.HEART;
+        Value value = Value.ACE;
         Card card = new Card(suit, value);
 
         assertNotNull(card);
@@ -30,7 +30,7 @@ public class CardTest {
      */
     @Test
     public void testGetNumber() {
-        Card card = new Card(Suit.SPADI, Value.TVISTUR);
+        Card card = new Card(Suit.SPADE, Value.TWO);
         assertEquals(2, card.getNumber());
     }
     

@@ -29,7 +29,7 @@ public class PlayerTest {
      */
     @Test
     public void testGetScore() {
-        player.drawCard(new Card(Suit.SPADI, Value.FIMMA));
+        player.drawCard(new Card(Suit.SPADE, Value.FIVE));
         assertEquals(5, player.getScore());
     }
 
@@ -38,8 +38,8 @@ public class PlayerTest {
      */
     @Test
     public void testWhoWins_PlayerWins() {
-        player1.drawCard(new Card(Suit.HJARTA, Value.TIA));
-        dealer.drawCard(new Card(Suit.HJARTA, Value.FIMMA));
+        player1.drawCard(new Card(Suit.HEART, Value.TEN));
+        dealer.drawCard(new Card(Suit.HEART, Value.FIVE));
         assertTrue(player1.whoWins(dealer));
     }
 
@@ -48,8 +48,8 @@ public class PlayerTest {
      */
     @Test
     public void testWhoWins_DealerWins() {
-        player1.drawCard(new Card(Suit.HJARTA, Value.TIA));
-        dealer.drawCard(new Card(Suit.HJARTA, Value.DROTTNING));
+        player1.drawCard(new Card(Suit.HEART, Value.TEN));
+        dealer.drawCard(new Card(Suit.HEART, Value.QUEEN));
         assertFalse(player1.whoWins(dealer));
     }
 
@@ -58,7 +58,7 @@ public class PlayerTest {
      */
     @Test
     public void testNewGame() {
-        player.drawCard(new Card(Suit.HJARTA, Value.TIA));
+        player.drawCard(new Card(Suit.HEART, Value.TEN));
         player.newGame();
         assertEquals(0, player.getScore());
     }
@@ -68,7 +68,7 @@ public class PlayerTest {
      */
     @Test 
     public void testIsBust_False() {
-        player.drawCard(new Card(Suit.HJARTA, Value.THRISTUR));
+        player.drawCard(new Card(Suit.HEART, Value.THREE));
         assertFalse(player.isBust());
     }
 
@@ -77,8 +77,8 @@ public class PlayerTest {
      */
     @Test 
     public void testHasTwentyOne_True() {
-        player.drawCard(new Card(Suit.HJARTA, Value.TIA));
-        player.drawCard(new Card(Suit.HJARTA, Value.AS));
+        player.drawCard(new Card(Suit.HEART, Value.TEN));
+        player.drawCard(new Card(Suit.HEART, Value.ACE));
         assertTrue(player.hasTwentyOne());
     }
 
@@ -87,7 +87,7 @@ public class PlayerTest {
      */
     @Test 
     public void testHasTwentyOne_False() {
-        player.drawCard(new Card(Suit.HJARTA, Value.TIA));
+        player.drawCard(new Card(Suit.HEART, Value.TEN));
         assertFalse(player.hasTwentyOne());
     }
 

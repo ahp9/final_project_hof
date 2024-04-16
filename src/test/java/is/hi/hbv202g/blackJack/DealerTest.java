@@ -42,8 +42,8 @@ public class DealerTest {
      */
     @Test
     public void testHasSeventeen() {
-        dealer.drawCard(new Card(Suit.HJARTA, Value.TIA));
-        dealer.drawCard(new Card(Suit.HJARTA, Value.SJOA));
+        dealer.drawCard(new Card(Suit.HEART, Value.TEN));
+        dealer.drawCard(new Card(Suit.HEART, Value.SEVEN));
         assertTrue(dealer.hasSeventeen());
     }
 }
