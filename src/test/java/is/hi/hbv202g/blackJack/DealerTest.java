@@ -28,5 +28,17 @@ public class DealerTest {
     public void dealerIsEmpty(){
         assertEquals(dealer.getScore(), 0);
     }
+
+    @Test
+    public void testNotSeventeen() {
+        assertFalse(dealer.getScore() >= 17);
+    }
+
+    @Test
+    public void testHasSeventeen() {
+        dealer.drawCard(new Card(Suit.HJARTA, Value.TIA));
+        dealer.drawCard(new Card(Suit.HJARTA, Value.SJOA));
+        assertTrue(dealer.hasSeventeen());
+    }
 }
 
