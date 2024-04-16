@@ -12,3 +12,6 @@ target/classes/
 ### VS Code ###
 .vscode/
 
+bin
+
+
