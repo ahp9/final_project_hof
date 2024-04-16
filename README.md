@@ -53,8 +53,9 @@ If user does not have Maven, the project can be executed with the following comm
 
 ## Site
 You can find the UML Class diagram with the folllowing link
-[UML-diagram](src\site\markdown\UML.md)
+[UML-diagram](./src/site/markdown/UML.md)
 
 
 ## License
-Hægt er að finna License á eftirfarandi link: [LICENCE](LICENSE)
+You can find the License with the following link 
+[LICENCE](LICENSE)
