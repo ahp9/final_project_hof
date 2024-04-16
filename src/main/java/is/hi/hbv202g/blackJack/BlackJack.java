@@ -10,8 +10,8 @@ public class BlackJack implements Observer {
 
     private static final String NEW_GAME_PROMPT = "Do you want to play another game?";
     private static final String PLAYER_MOVE_PROMPT = "If you want to Stand please press 1. If you want a new Card please press 2.";
-    private static final String PLAYER_WON_TEXT = "Congratulations, you won and with:";
-    private static final String DEALER_WON_TEXT = "Im sorry, the dealer won with";
+    private static final String PLAYER_WON_TEXT = "Congratulations, you won and with: ";
+    private static final String DEALER_WON_TEXT = "Im sorry, the dealer won with ";
 
     public BlackJack() {
         this.player = new Player();
@@ -24,9 +24,9 @@ public class BlackJack implements Observer {
     @Override
     public void update() {
         if(player.getCards().size() > 1 && dealer.getCards().size() > 1){
-            System.out.println("Dealer spil: " + dealer.getCards() + ". Samtals: " + dealer.getScore());
+            System.out.println("Dealer cards: " + dealer.getCards() + ". Total score: " + dealer.getScore());
             System.out.println("------------------------------");
-            System.out.println("Spilin þín:  " + player.getCards() + ". Samtals: " + player.getScore());
+            System.out.println("Your cards:  " + player.getCards() + ". Total score: " + player.getScore());
         }
     }
 
@@ -54,7 +54,7 @@ public class BlackJack implements Observer {
         }
         if (playerStands) {
             if (player.getScore() == dealer.getScore()) {
-                return "Það varð jafntefli";
+                return "There was a tie";
             }
             if (player.whoWins(dealer)) {
                 return PLAYER_WON_TEXT + player.getScore();

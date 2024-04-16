@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Testar Card klasan
+ * Testar Card klasann
  */
 public class CardTest {
 
