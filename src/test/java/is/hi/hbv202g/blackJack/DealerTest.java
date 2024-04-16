@@ -29,11 +29,17 @@ public class DealerTest {
         assertEquals(dealer.getScore(), 0);
     }
 
+    /**
+     * Prófar hvort að Dealer hefur jafnt eða meira en 17 stig.
+     */
     @Test
     public void testNotSeventeen() {
         assertFalse(dealer.getScore() >= 17);
     }
 
+    /**
+     * Prófar hvort dealer hefur jafnt eða meira en 17 stig.
+     */
     @Test
     public void testHasSeventeen() {
         dealer.drawCard(new Card(Suit.HJARTA, Value.TIA));
