@@ -2,11 +2,11 @@
 Ástríður Haraldsdóttir Passauer og Sylvía Hanna Tyrfingsdóttir
 
 ## Overview
-We decided to implement an old project from Graphical User Interface Programming 2022, but without the JavaFX. 
-The project is an version of BlackJack, where you as a player are playing Black Jack against the dealer.
-The project skeleton implementes *Observer* pattern and some sort of *Template Method* pattern. 
+This project implements an old project from Graphical User Interface Programming 2022, focusing on BlackJack, but without the JavaFX dependency. In this version of BlackJack, players engage in a classic game against the dealer.
 
-This project is a Maven project, i.e. uses the standard Maven project sturcture. 
+The project skeleton incorporates the Observer pattern for managing game state changes and features some aspects of the Template Method pattern for defining the structure of the game.
+
+Additionally, this project is structured as a Maven project. This means it follows the standard Maven project structure, facilitating easy dependency management and project build automation.
 
 ## Installation
 
